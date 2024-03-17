@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<header th:replace="~{admin/include/header_nav_footer::header}">
+	</header>
+	
+	<nav th:replace="~{admin/include/header_nav_footer::nav}">
+	</nav>
+	
+	<article>
+		
+		<p>create admin form</p>
+	
+		<form action="/admin/create_admin_confirm" name="create_admin_form" method="post">
+			<input type="text" name="a_id" placeholder="INPUT ADMIN ID">
+			<br>
+			<input type="password" name="a_pw" placeholder="INPUT ADMIN PW">
+			<br>
+			<input type="submit" value="관리자 회원가입">
+			<input type="reset" value="초기화">
+		</form>
+	
+	</article>
+	
+	<footer th:replace="~{admin/include/header_nav_footer::footer}">
+	</footer>
+	
+</body>
+</html>

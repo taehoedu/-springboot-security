@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.security.member.IMemberDao">
+
+	<insert id="insertNewMember" 
+			parameterType="com.office.security.member.MemberDto">
+		
+		INSERT INTO 
+			TBL_MEMBER(M_ID, M_PW) 
+		VALUES(#{m_id}, #{m_pw})
+		
+	</insert>
+	
+	<resultMap type="com.office.security.member.AuthorityDto" id="authorityDto">
+		<result column="m_authority_no" property="m_authority_no"/>
+		<result column="m_authority_role_name" property="m_authority_role_name"/>
+	</resultMap>
+	
+	<resultMap type="com.office.security.member.MemberDto" id="memberDto">
+		<result column="m_no" property="m_no"/>
+		<result column="m_id" property="m_id"/>
+		<result column="m_pw" property="m_pw"/>
+		<result column="m_authority_no" property="m_authority_no"/>
+		<result column="m_isaccountnonexpired" property="m_isaccountnonexpired"/>
+		<result column="m_isaccountnonlocked" property="m_isaccountnonlocked"/>
+		<result column="m_iscredentialsnonexpired" property="m_iscredentialsnonexpired"/>
+		<result column="m_isenabled" property="m_isenabled"/>
+		<result column="m_reg_date" property="m_reg_date"/>
+		<result column="m_mod_date" property="m_mod_date"/>
+		<collection property="authorityDto" resultMap="authorityDto"/>
+	</resultMap>
+	
+	<select id="selectMemberByMId"
+		parameterType="String"
+		resultMap="memberDto">
+		
+		SELECT 
+			* 
+		FROM 
+			TBL_MEMBER M 
+		JOIN 
+			TBL_MEMBER_AUTHORITY R  
+		ON 
+			M.M_AUTHORITY_NO = R.M_AUTHORITY_NO 
+		WHERE 
+			M_ID = #{m_id}
+		
+	</select>
+	
+	<update id="updateMemberByMNo"
+			parameterType="com.office.security.member.MemberDto">
+	
+		UPDATE 
+			TBL_MEMBER
+		SET 
+			M_PW = #{m_pw}, 
+			M_MOD_DATE = NOW() 
+		WHERE 
+			M_NO = #{m_no}
+	
+	</update>
+	
+	<delete id="deleteMemberByMId"
+			parameterType="String">
+	
+		DELETE FROM 
+			TBL_MEMBER
+		WHERE
+			M_ID = #{m_id}
+			
+	</delete>
+	
+</mapper>

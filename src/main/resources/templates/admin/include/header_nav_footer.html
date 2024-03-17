@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<header th:fragment="header">
+	<a href="/admin">홈</a>
+	&nbsp;&nbsp;
+	
+	<!--  
+	<th:block th:if="${#authentication.name} == 'anonymousUser'">
+		<a href="/admin/create_admin_form">관리자 회원가입</a>
+		&nbsp;&nbsp;
+		<a href="/admin/login_admin_form">관리자 로그인</a>
+		&nbsp;&nbsp;
+	</th:block>
+	
+	<th:block th:unless="${#authentication.name} == 'anonymousUser'">
+		<a href="/admin/modify_admin_form">관리자 계정수정</a>
+		&nbsp;&nbsp;
+		<a href="/admin/logout_admin_confirm">관리자 로그아웃</a>
+		&nbsp;&nbsp;
+		<a href="#none">계정삭제</a>
+	</th:block>
+	-->
+	
+	<!--
+	<th:block th:if="${session.loginedAdminDto == null}">
+		<a href="/admin/create_admin_form">관리자 회원가입</a>
+		&nbsp;&nbsp;
+		<a href="/admin/login_admin_form">관리자 로그인</a>
+		&nbsp;&nbsp;
+	</th:block>
+	
+	<th:block th:unless="${session.loginedAdminDto == null}">
+		<a href="/admin/modify_admin_form">관리자 계정수정</a>
+		&nbsp;&nbsp;
+		<a href="/admin/logout_admin_confirm">관리자 로그아웃</a>
+		&nbsp;&nbsp;
+		<a href="#none">관리자 계정삭제</a>
+	</th:block>
+	-->
+	
+	<th:block sec:authorize="!hasAnyRole('SUPER_ADMIN')">
+		<a href="/admin/create_admin_form">관리자 회원가입</a>
+		&nbsp;&nbsp;
+		<a href="/admin/login_admin_form">관리자 로그인</a>
+		&nbsp;&nbsp;
+	</th:block>
+	
+	<th:block sec:authorize="hasAnyRole('SUPER_ADMIN')">
+		<a href="/admin/modify_admin_form">관리자 계정수정</a>
+		&nbsp;&nbsp;
+		<a href="/admin/logout_admin_confirm">관리자 로그아웃</a>
+		&nbsp;&nbsp;
+		<a href="/admin/delete_admin_confirm">관리자 계정삭제</a>
+	</th:block>
+	
+</header>
+
+<nav th:fragment="nav">
+	<a href="/admin/service1/">service1</a>
+	&nbsp;&nbsp;
+	<a href="/admin/service2/">service2</a>
+</nav>
+
+<footer th:fragment="footer">
+	Copyright ⓒ OUR Corp. All Rights Reserved
+</footer>

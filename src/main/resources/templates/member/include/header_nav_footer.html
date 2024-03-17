@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<header th:fragment="header">
+	<a href="/">홈</a>
+	&nbsp;&nbsp;
+	
+	<!--  
+	<th:block th:if="${#authentication.name} == 'anonymousUser'">
+		<a href="/member/create_member_form">회원가입</a>
+		&nbsp;&nbsp;
+		<a href="/member/login_member_form">로그인</a>
+		&nbsp;&nbsp;
+	</th:block>
+	
+	<th:block th:unless="${#authentication.name} == 'anonymousUser'">
+		<a href="/member/modify_member_form">계정수정</a>
+		&nbsp;&nbsp;
+		<a href="/member/logout_member_confirm">로그아웃</a>
+		&nbsp;&nbsp;
+		<a href="#none">계정삭제</a>
+	</th:block>
+	-->
+	
+	<!--
+	<th:block th:if="${session.loginedMemberDto == null}">
+		<a href="/member/create_member_form">회원가입</a>
+		&nbsp;&nbsp;
+		<a href="/member/login_member_form">로그인</a>
+		&nbsp;&nbsp;
+	</th:block>
+	
+	<th:block th:unless="${session.loginedMemberDto == null}">
+		<a href="/member/modify_member_form">계정수정</a>
+		&nbsp;&nbsp;
+		<a href="/member/logout_member_confirm">로그아웃</a>
+		&nbsp;&nbsp;
+		<a href="#none">계정삭제</a>
+	</th:block>
+	-->
+	
+	<th:block sec:authorize="!hasAnyRole('USER')">
+		<a href="/member/create_member_form">회원가입</a>
+		&nbsp;&nbsp;
+		<a href="/member/login_member_form">로그인</a>
+		&nbsp;&nbsp;
+	</th:block>
+	
+	<th:block sec:authorize="hasAnyRole('USER')">
+		<a href="/member/modify_member_form">계정수정</a>
+		&nbsp;&nbsp;
+		<a href="/member/logout_member_confirm">로그아웃</a>
+		&nbsp;&nbsp;
+		<a href="/member/delete_member_confirm">계정삭제</a>
+	</th:block>
+	
+</header>
+
+<nav th:fragment="nav">
+	<a href="/member/service1/">service1</a>
+	&nbsp;&nbsp;
+	<a href="/member/service2/">service2</a>
+</nav>
+
+<footer th:fragment="footer">
+	Copyright ⓒ OUR Corp. All Rights Reserved
+</footer>

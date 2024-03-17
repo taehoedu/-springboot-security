@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<header th:replace="~{member/include/header_nav_footer::header}">
+	</header>
+	
+	<nav th:replace="~{member/include/header_nav_footer::nav}">
+	</nav>
+	
+	<article>
+		
+		<p>modify member form</p>
+	
+		<form action="/member/modify_member_confirm" name="modify_member_form" method="post">
+			
+			<input type="hidden" name="m_no" th:value="${memberDto.m_no}">
+			
+			<input type="text" name="m_id" th:value="${memberDto.m_id}" readonly placeholder="INPUT MEMBER ID">
+			<br>
+			<input type="password" name="m_pw" value="******" placeholder="INPUT MEMBER PW">
+			<br>
+			<input type="submit" value="계정수정">
+			<input type="reset" value="초기화">
+		</form>
+	
+	</article>
+	
+	<footer th:replace="~{member/include/header_nav_footer::footer}">
+	</footer>
+	
+</body>
+</html>

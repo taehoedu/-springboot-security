@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.security.admin.IAdminDao">
+
+	<insert id="insertNewAdmin" 
+			parameterType="com.office.security.admin.AdminDto">
+		
+		INSERT INTO 
+			TBL_ADMIN(A_ID, A_PW) 
+		VALUES(#{a_id}, #{a_pw})
+		
+	</insert>
+	
+	<resultMap type="com.office.security.admin.AuthorityDto" id="authorityDto">
+		<result column="a_authority_no" property="a_authority_no"/>
+		<result column="a_authority_role_name" property="a_authority_role_name"/>
+	</resultMap>
+	
+	<resultMap type="com.office.security.admin.AdminDto" id="adminDto">
+		<result column="a_no" property="a_no"/>
+		<result column="a_id" property="a_id"/>
+		<result column="a_pw" property="a_pw"/>
+		<result column="a_authority_no" property="a_authority_no"/>
+		<result column="a_isaccountnonexpired" property="a_isaccountnonexpired"/>
+		<result column="a_isaccountnonlocked" property="a_isaccountnonlocked"/>
+		<result column="a_iscredentialsnonexpired" property="a_iscredentialsnonexpired"/>
+		<result column="a_isenabled" property="a_isenabled"/>
+		<result column="a_reg_date" property="a_reg_date"/>
+		<result column="a_mod_date" property="a_mod_date"/>
+		<collection property="authorityDto" resultMap="authorityDto"/>
+	</resultMap>
+	
+	<select id="selectAdminByAId"
+		parameterType="String"
+		resultMap="adminDto">
+		
+		SELECT 
+			* 
+		FROM 
+			TBL_ADMIN A
+		JOIN 
+			TBL_ADMIN_AUTHORITY R
+		ON 
+			A.A_AUTHORITY_NO = R.A_AUTHORITY_NO 
+		WHERE 
+			A_ID = #{a_id}
+		
+	</select>
+	
+	<update id="updateAdminByANo"
+			parameterType="com.office.security.admin.AdminDto">
+	
+		UPDATE 
+			TBL_ADMIN
+		SET 
+			A_PW = #{a_pw}, 
+			A_MOD_DATE = NOW() 
+		WHERE 
+			A_NO = #{a_no}
+	
+	</update>
+	
+	<delete id="deleteAdminByAId"
+			parameterType="String">
+	
+		DELETE FROM 
+			TBL_ADMIN
+		WHERE
+			A_ID = #{a_id}
+			
+	</delete>
+	
+</mapper>
